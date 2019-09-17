@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
     LOPT = atof(argv[2]); // char → double
     N = atoi(argv[4]); // char → int
     for(i = 0;i < N; i++){
-	flag[i] = 0;
+		flag[i] = 0;
     }
 
     if(strcmp(argv[1],"LOPT") != 0 && strcmp(argv[3],"N") != 0){
@@ -50,13 +50,13 @@ int main(int argc, char *argv[]) {
     fp = fopen(fname, "r"); // ファイルを読み込みモードで開く
 
     for(i = 0; i < N; i++) { // データを格納する
-	fscanf(fp, "%d %lf %lf", &number, &x, &y);
-	Data_x[i] = x; // x座標
-	Data_y[i] = y; // y座標
-	num[i] = number; // 列番号
+		fscanf(fp, "%d %lf %lf", &number, &x, &y);
+		Data_x[i] = x; // x座標
+		Data_y[i] = y; // y座標
+		num[i] = number; // 列番号
 
-	// printf("data_x[%d] = %f, data_y[%d] = %f\n", i, Data_x[i], i, Data_y[i]);
-	//N++;
+		// printf("data_x[%d] = %f, data_y[%d] = %f\n", i, Data_x[i], i, Data_y[i]);
+		//N++;
     }
 
     fclose(fp); // ファイルを閉じる
@@ -70,30 +70,29 @@ int main(int argc, char *argv[]) {
     flag[pos] = 1;
 
     for (i = 0; i < N - 1; i++) {
-	min = 1000000; // 最小値の更新
-	for (j = 0; j < N; j++) {
-	    if(X[i] == Data_x[j]){ // 同じ点pass
-	    }
-	    else{
-		if (flag[j] == 1) { // もう既につながった点はpass
-		}
-		else {
-		    distance = dis(X[i], Data_x[j], Y[i], Data_y[j]); // 距離の計算
-		    // printf("dis = %f, j = %d\n", distance, j);
-		    if (distance < min) { // 最小値より小さかったら最短距離を更新する
-			X[i + 1] = Data_x[j];
-			Y[i + 1] = Data_y[j];
+		min = 1000000; // 最小値の更新
+		for (j = 0; j < N; j++) {
+	    	if(X[i] == Data_x[j]){ // 同じ点pass
+	    	}
+	    	else{
+				if (flag[j] == 1) { // もう既につながった点はpass
+				}
+				else {
+		    		distance = dis(X[i], Data_x[j], Y[i], Data_y[j]); // 距離の計算
+		    		// printf("dis = %f, j = %d\n", distance, j);
+		    		if (distance < min) { // 最小値より小さかったら最短距離を更新する
+						X[i + 1] = Data_x[j];
+						Y[i + 1] = Data_y[j];
 
-			min = distance; // 最小値を更新する
-			keep = j; // その点をマークする
-		    }
+						min = distance; // 最小値を更新する
+						keep = j; // その点をマークする
+		    		}
+				}
+	    	}
 		}
-	    }
-	   
-	}
-	// printf("i = %d, keep = %d, X[%d] = %f\n", i, keep, i+1, X[i+1]);
-	flag[keep] = 1; // つながった点を更新する
-	solution += min; // 距離を更新する
+		// printf("i = %d, keep = %d, X[%d] = %f\n", i, keep, i+1, X[i+1]);
+		flag[keep] = 1; // つながった点を更新する
+		solution += min; // 距離を更新する
     }
 
     solution += dis(X[0], X[N-1], Y[0], Y[N-1]); // 終点と始点の距離
@@ -120,7 +119,7 @@ int main(int argc, char *argv[]) {
 
     fprintf(FILE, "    \n"); // ファイルからデータを読み込めるために，一行目を空く
     for (i = 0; i <= N; i++) {
-	fprintf(FILE, "%f %f\n", X[i], Y[i]);
+		fprintf(FILE, "%f %f\n", X[i], Y[i]);
     }
     fclose(FILE);
 
