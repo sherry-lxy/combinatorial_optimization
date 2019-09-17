@@ -35,18 +35,18 @@ int main(void) {
     scanf("%d", &n);
 
     for (i = 0; i < n; i++) { // データを格納する
-	fscanf(fp, "%d %lf %lf", &number, &x, &y);
-	X[i] = x;
-	Y[i] = y;
-	num[i] = number;
-	// printf("x=%f,y=%f\n",Data_x[i], Data_y[i]);
+		fscanf(fp, "%d %lf %lf", &number, &x, &y);
+		X[i] = x;
+		Y[i] = y;
+		num[i] = number;
+		// printf("x=%f,y=%f\n",Data_x[i], Data_y[i]);
     }
 
     fclose(fp); // ファイルを閉じる
 
     distance[0] = min; // 0番目は最短距離を格納するためにminで初期化する
     for (i = 1; i <= n; i++) { // 1番目以後はルートを保存する
-	distance[i] = -1;
+		distance[i] = -1;
     }
 
     start = clock(); // time start
@@ -56,12 +56,12 @@ int main(void) {
     // 結果出力
     printf("最適解：dis = %f  \n最短ルート：", distance[0]);
     for (j = 1; j <= n; j++) {
-	if (j != n) {
-	    printf(" %d →", (int)distance[j]);
-	}
-	else {
-	    printf(" %d ", (int)distance[j]);
-	}
+		if (j != n) {
+	    	printf(" %d →", (int)distance[j]);
+		}
+		else {
+	    	printf(" %d ", (int)distance[j]);
+		}
     }
     printf("\n");
     printf("処理時間：%f [s]\n", (double)(end - start) / CLOCKS_PER_SEC);
@@ -88,7 +88,7 @@ double list(int *num, int n, double *X, double *Y) {
     sum = dis(X[num[0]], X[num[n - 1]], Y[num[0]], Y[num[n - 1]]); // 始点と終点の距離を先に計算する
 
     for (i = 0; i < n - 1; i++) {
-	sum += dis(X[num[i]], X[num[i + 1]], Y[num[i]], Y[num[i + 1]]);
+		sum += dis(X[num[i]], X[num[i + 1]], Y[num[i]], Y[num[i + 1]]);
     }
 
     return sum;
@@ -102,43 +102,42 @@ void perm(int i, double *X, double *Y, int n, int *num, double *distance) {
     int ite; // ルート
 
     if (i < n - 2) {
-	perm(i + 1, X, Y, n, num, distance); // i+1 番目以降の順列を生成する
-	for (j = i + 1; j < n; j++) { 
-	    // i 番目の要素を j 番目の要素と交換
-	    tmp = num[i];
-	    num[i] = num[j];
-	    num[j] = tmp;
+		perm(i + 1, X, Y, n, num, distance); // i+1 番目以降の順列を生成する
+		for (j = i + 1; j < n; j++) { 
+	    	// i 番目の要素を j 番目の要素と交換
+	    	tmp = num[i];
+	    	num[i] = num[j];
+	    	num[j] = tmp;
 
-	    perm(i + 1, X, Y, n, num, distance); // i+1 番目以降の順列を生成する
+	    	perm(i + 1, X, Y, n, num, distance); // i+1 番目以降の順列を生成する
 
-	    // 元の順列に戻す
-	    tmp = num[i];
-	    num[i] = num[j];
-	    num[j] = tmp;
-
-	}
+	    	// 元の順列に戻す
+	    	tmp = num[i];
+	    	num[i] = num[j];
+	    	num[j] = tmp;
+		}
     }
     else { // 順列の添字が n-1 逮したら，巡回路長を計算する
-	cost = list(num, n, X, Y);
-	// printf("dis = %f\n\n", cost);
+		cost = list(num, n, X, Y);
+		// printf("dis = %f\n\n", cost);
 
-	if (cost < distance[0]) { // 0番目で格納している距離と比較して，短ったら交換する
-	    distance[0] = cost;
-	    for (ite = 1; ite <= n; ite++) { // これに対応するルートも格納する
-		distance[ite] = num[ite - 1];
-	    }
-/*
+		if (cost < distance[0]) { // 0番目で格納している距離と比較して，短ったら交換する
+	    	distance[0] = cost;
+	    	for (ite = 1; ite <= n; ite++) { // これに対応するルートも格納する
+				distance[ite] = num[ite - 1];
+	    	}
+		/*
 	    printf("dis = %f  \nルート：", distance[0]);
 	    for (j = 1; j <= n; j++) {
-		if (j != n) {
-		    printf(" %d →", (int)distance[j]);
-		}
-		else {
-		    printf(" %d ", (int)distance[j]);
-		}
+			if (j != n) {
+		    	printf(" %d →", (int)distance[j]);
+			}
+			else {
+		    	printf(" %d ", (int)distance[j]);
+			}
 	    }
 	    printf("\n");
-*/
-	}
+		*/
+		}
     }
 }
