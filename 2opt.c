@@ -168,6 +168,6 @@ double distance(double x1, double x2, double y1, double y2) {
     double dis;
 
     dis = pow((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2), 0.5) + 0.5;
-
+	
     return dis;
 }
