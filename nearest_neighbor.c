@@ -124,7 +124,7 @@ int main(int argc, char *argv[]) {
     fclose(FILE);
 
     //system("pause"); // 続行するには何かキーを押してください . . .
-
+	
     return 0;
 }
 
